@@ -100,7 +100,7 @@ The command line is where you'll start:
 
 20. The example uses GPIO pins 15 as a piezo buzzer, 11 and 12 as LEDs, and 13 as a button (with internal pullups set HIGH, so connect one leg of the button to 13 and the other to ground.)
 
-    ![Wiring Diagram](diagram.svg)
+    ![Wiring Diagram](https://github.com/tdack/rpi-kivy-screen/blob/master/diagram.svg)
 
 21. First try to run the example as root (in versions of Raspbian before Jessie, root access is required for the GPIO library):
 
