@@ -1,5 +1,9 @@
 # Using Kivy with the official Raspberry Pi Touch Display
 
+This is a variation based on [Matt Richardson's demo](https://github.com/mrichardson23/rpi-kivy-screen), this one using kvlang to layout the controls.
+
+It's not as short and sweet as the original, but shows how to use the Kivy widgets  and the properties and event system to control GPIOs or react to them.
+
 [![Demo video](http://img.youtube.com/vi/Eah3Zq18OyM/0.jpg)](http://www.youtube.com/watch?v=Eah3Zq18OyM)
 
 The guide below and example code will get you started setting up the Raspberry Pi touch display and getting Kivy working with it. [Kivy](http://kivy.org/) is an "open source Python library for rapid development of applications
@@ -92,23 +96,23 @@ The command line is where you'll start:
 19. To try Kivy and GPIO together, download this repo to your Raspberry Pi if you haven't already:
 
         pi@raspberrypi ~/kivy $ cd ~
-        pi@raspberrypi ~ $ git clone https://github.com/mrichardson23/rpi-kivy-screen.git
+        pi@raspberrypi ~ $ git clone https://github.com/tdack/rpi-kivy-screen.git
 
-20. The example uses BCM GPIO pins 17 as a piezo buzzer, 27 and 10 as LEDs, and 22 as a button (with internal pullups set HIGH, so connect one leg of the button to 22 and the other to ground.)
+20. The example uses GPIO pins 15 as a piezo buzzer, 11 and 12 as LEDs, and 13 as a button (with internal pullups set HIGH, so connect one leg of the button to 13 and the other to ground.)
 
-    ![Wiring Diagram](https://github.com/mrichardson23/rpi-kivy-screen/blob/master/diagram.png)
+    ![Wiring Diagram](diagram.svg)
 
 21. First try to run the example as root (in versions of Raspbian before Jessie, root access is required for the GPIO library):
 
         pi@raspberrypi ~ $ cd rpi-kivy-screen/
-        pi@raspberrypi ~/rpi-kivy-screen $ sudo python main.py 
+        pi@raspberrypi ~/rpi-kivy-screen $ sudo python main.py
 
-22. As you'll see, touch doesn't work. To fix this, you need to make the same change to `config.ini` you made before, but to the root account's config file. Exit (`Control+C`) and copy over your home directory's Kivy configuration file to overwrite the root account's: 
+22. As you'll see, touch doesn't work. To fix this, you need to make the same change to `config.ini` you made before, but to the root account's config file. Exit (`Control+C`) and copy over your home directory's Kivy configuration file to overwrite the root account's:
 
         pi@raspberrypi ~/rpi-kivy-screen $ sudo cp ~/.kivy/config.ini /root/.kivy/config.ini
 
-23. Run the example again and you'll be able to control the LED and buzzer. You'll also be able to see the state of the physical button! 
+23. Run the example again and you'll be able to control the LED and buzzer. You'll also be able to see the state of the physical button!
 
-        pi@raspberrypi ~/rpi-kivy-screen $ sudo python main.py 
+        pi@raspberrypi ~/rpi-kivy-screen $ sudo python main.py
 
 Even though root access isn't required for Python GPIO starting with the Jessie version of Raspbian, it may be helpful to copy the `config.ini` file anyway in case you decide to have the root user execute your project immediately after boot up.
