@@ -1,0 +1,88 @@
+#:kivy 1.0
+#:import GPIO RPi.GPIO
+
+# Widget place holders for custom buttons
+<GPIOInputButton>:
+
+<GPIOToggleButton>:
+
+<GPIOPressButton>:
+
+<GPIOSlider>:
+
+# Main interface
+<Monitor>:
+	# Add a nice background colour
+	canvas:
+		Color:
+			rgba: 0.3, 0.2, 0.25, 1.0
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+	# Close button so you can quit the app without needing a keyboard
+	# (or using Ctrl-C)
+	Button:
+		id: 'btn_close'
+		text: "X"
+		pos: self.parent.width - 50, self.parent.height - 50
+		size: 40, 40
+		on_press: app.stop()
+
+	# Controls linked to GPIOs
+	GridLayout:
+		cols: 5
+		padding: 30
+		spacing: 30
+		size: self.parent.size
+		row_default_height: 150
+
+		Image:
+			source: 'logo.png'
+
+		# A button that is activated using a GPIO as input
+		GPIOInputButton:
+			id: btn_input
+			text: 'Input'
+			pin: 13
+			direction: GPIO.IN
+			pull_up_down: GPIO.PUD_UP
+			gpio_configured: False
+
+		# Toggles an LED on or off with each press
+		GPIOToggleButton:
+			id: btn_led
+			text: 'LED'
+			pin: 11
+			direction: GPIO.OUT
+			gpio_value: GPIO.LOW
+			gpio_configured: False
+
+		# A momentary press button that changes the GPIO output whilst it is
+		# held down
+		GPIOPressButton:
+			id: btn_beep
+			text: 'BEEP!'
+			pin: 15
+			direction: GPIO.OUT
+			gpio_value: GPIO.LOW
+			gpio_configured: False
+
+		# A slider that varies the frequency of a flashing LED
+		StackLayout:
+			padding: 10
+			spacing: 10
+			GPIOSlider:
+				id: sld_speed
+				orientation: 'vertical'
+				min: 1
+				max: 30
+				step: 1
+				pin: 12
+				direction: GPIO.OUT
+				gpio_configured: False
+				value: 5
+
+			Label:
+				id: lbl_speed
+				text: '{}'.format(sld_speed.value)
